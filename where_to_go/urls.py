@@ -23,7 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.show_phones),
 ]
-
+urlpatterns += [
+     path('places/', include('places.urls')),
+]
 if settings.DEBUG:
     import debug_toolbar
 

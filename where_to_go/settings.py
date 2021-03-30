@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'debug_toolbar',
+
+    'places.apps.PlacesConfig',
 ]
 
 MIDDLEWARE = [
