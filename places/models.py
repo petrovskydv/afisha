@@ -22,7 +22,7 @@ class Image(models.Model):
         Place,
         on_delete=models.CASCADE,
         verbose_name='Место, которому принадлежит фото',
-        related_name='places'
+        related_name='images'
     )
     image = models.ImageField('Изображение')
 
