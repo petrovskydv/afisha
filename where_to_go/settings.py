@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'debug_toolbar',
+    'adminsortable2',
 
     'places.apps.PlacesConfig',
 ]
