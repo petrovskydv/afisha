@@ -2,39 +2,32 @@ import os
 
 from django.shortcuts import render
 
+from places.models import Place
 from where_to_go.settings import STATIC_URL
 
 
 def index(request):
     print("новое приложение")
-    places = {
-        "type": "FeatureCollection",
-        "features": [
-            {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [37.62, 55.793676]
-                },
-                "properties": {
-                    "title": "«Легенды Москвы",
-                    "placeId": "moscow_legends",
-                    "detailsUrl": os.path.join(STATIC_URL, 'places/moscow_legends.json')
-                }
+    places = Place.objects.all()
+    features = []
+    for place in places:
+        place_feature = {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [place.lon, place.lat]
             },
-            {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [37.64, 55.753676]
-                },
-                "properties": {
-                    "title": "Крыши24.рф",
-                    "placeId": "roofs24",
-                    "detailsUrl": os.path.join(STATIC_URL, 'places/roofs24.json')
-                }
+            "properties": {
+                "title": place.title,
+                "placeId": "moscow_legends",
+                "detailsUrl": os.path.join(STATIC_URL, 'places/moscow_legends.json')
             }
-        ]
+        }
+        features.append(place_feature)
+
+    places_features = {
+        "type": "FeatureCollection",
+        "features": features
     }
 
-    return render(request, 'index.html', context={'places': places})
+    return render(request, 'index.html', context={'places': places_features})
