@@ -1,16 +1,12 @@
-import os
-
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from places.models import Place
-from where_to_go.settings import STATIC_URL
 
 
 def index(request):
-    print("новое приложение")
-    places = Place.objects.all().order
+    places = Place.objects.all()
     features = []
     for place in places:
         place_feature = {
