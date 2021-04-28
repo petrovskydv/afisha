@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'debug_toolbar',
     'adminsortable2',
+    'tinymce',
 
     'places.apps.PlacesConfig',
 ]
