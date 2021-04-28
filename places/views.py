@@ -2,6 +2,7 @@ import os
 
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
 from places.models import Place
 from where_to_go.settings import STATIC_URL
@@ -9,7 +10,7 @@ from where_to_go.settings import STATIC_URL
 
 def index(request):
     print("новое приложение")
-    places = Place.objects.all()
+    places = Place.objects.all().order
     features = []
     for place in places:
         place_feature = {
@@ -21,7 +22,7 @@ def index(request):
             "properties": {
                 "title": place.title,
                 "placeId": place.id,
-                "detailsUrl": os.path.join(STATIC_URL, 'places/moscow_legends.json')
+                "detailsUrl": reverse(get_place_by_id, args=[place.id])
             }
         }
         features.append(place_feature)
@@ -36,7 +37,7 @@ def index(request):
 
 def get_place_by_id(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
-    place_images = place.images.all()
+    place_images = place.images.all().order_by('number')
     images_url = [place_image.image.url for place_image in place_images]
     place_feature = {
         'title': place.title,
