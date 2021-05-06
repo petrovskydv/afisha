@@ -4,3 +4,5 @@ django-debug-toolbar~=3.2
 Pillow==8.2.0  # required by Windows environment
 django-admin-sortable2==1.0
 django-tinymce==3.3.0
+requests~=2.25.1
+urllib3~=1.26.4
