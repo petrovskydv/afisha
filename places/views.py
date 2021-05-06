@@ -5,7 +5,7 @@ from django.urls import reverse
 from places.models import Place
 
 
-def index(request):
+def get_all_places(request):
     places = Place.objects.all()
     features = []
     for place in places:
