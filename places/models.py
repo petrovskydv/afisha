@@ -19,17 +19,16 @@ class Place(models.Model):
     def get_place_description(self):
         place_images = self.images.all().order_by('number')
         images_url = [place_image.image.url for place_image in place_images]
-        place_description = {
+        return {
             'title': self.title,
             'imgs': images_url,
             'description_short': self.description_short,
             'description_long': self.description_long,
             'coordinates': {
                 'lng': self.lon,
-                'lat': self.lat
+                'lat': self.lat,
             },
         }
-        return place_description
 
 
 class Image(models.Model):
@@ -38,7 +37,7 @@ class Image(models.Model):
         Place,
         on_delete=models.CASCADE,
         verbose_name='Место, которому принадлежит фото',
-        related_name='images'
+        related_name='images',
     )
     image = models.ImageField('Изображение')
 
