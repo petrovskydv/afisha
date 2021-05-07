@@ -33,20 +33,8 @@ def get_all_places(request):
 
 def get_place_by_id(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
-    place_images = place.images.all().order_by('number')
-    images_url = [place_image.image.url for place_image in place_images]
-    place_feature = {
-        'title': place.title,
-        'imgs': images_url,
-        'description_short': place.description_short,
-        'description_long': place.description_long,
-        'coordinates': {
-            'lng': place.lon,
-            'lat': place.lat
-        },
-    }
     response = JsonResponse(
-        place_feature,
+        place.get_place_description(),
         safe=False,
         json_dumps_params={'ensure_ascii': False, 'indent': 2}
     )

@@ -16,6 +16,21 @@ class Place(models.Model):
         verbose_name = 'Место'
         verbose_name_plural = 'Места'
 
+    def get_place_description(self):
+        place_images = self.images.all().order_by('number')
+        images_url = [place_image.image.url for place_image in place_images]
+        place_description = {
+            'title': self.title,
+            'imgs': images_url,
+            'description_short': self.description_short,
+            'description_long': self.description_long,
+            'coordinates': {
+                'lng': self.lon,
+                'lat': self.lat
+            },
+        }
+        return place_description
+
 
 class Image(models.Model):
     number = models.IntegerField('Номер картинки')
