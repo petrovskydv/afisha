@@ -32,7 +32,7 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    number = models.IntegerField('Номер картинки')
+    number = models.IntegerField('Номер картинки', blank=True)
     place = models.ForeignKey(
         Place,
         on_delete=models.CASCADE,
