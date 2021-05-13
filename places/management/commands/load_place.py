@@ -24,10 +24,12 @@ class Command(BaseCommand):
 
             place, created_place = Place.objects.get_or_create(
                 title=review_result['title'],
-                lat=review_result['coordinates']['lat'],
-                lon=review_result['coordinates']['lng'],
-                description_short=review_result['description_short'],
-                description_long=review_result['description_long']
+                defaults={
+                    'lat': review_result['coordinates']['lat'],
+                    'lon': review_result['coordinates']['lng'],
+                    'description_short': review_result['description_short'],
+                    'description_long': review_result['description_long'],
+                }
             )
 
             for number, image_url in enumerate(review_result['imgs'], start=1):
