@@ -24,8 +24,11 @@ class PlaceAdmin(admin.ModelAdmin):
     inlines = [
         ImageInline,
     ]
+    ordering = ['title']
+    search_fields = ['title']
 
 
 @admin.register(Image)
 class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
-    pass
+    raw_id_fields = ('place',)
+    autocomplete_fields = ['place']
